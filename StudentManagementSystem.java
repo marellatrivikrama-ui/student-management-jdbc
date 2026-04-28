@@ -25,7 +25,7 @@ class Student {
         return "ID: " + id + ", Name: " + name + ", Age: " + age +"\n  First Name: " + firstname + ", Last Name: " + lastname +"\n  Aadhar: " + aadharnumber + ", Address: " + address + ",class:" + ssalc + "\n";
     }
 }
-public class Addstudent {
+public class StudentManagementSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Student> students = new ArrayList<>();
