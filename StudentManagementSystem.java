@@ -26,9 +26,31 @@ class Student {
     }
 }
 public class StudentManagementSystem {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<Student> students = new ArrayList<>();
+    public static ArrayList<Student> students = new ArrayList<>();
+    public static Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args)throws InterruptedException {
+        System.out.print("What do you wnat to do? \n 1. Add Student \n 2. View Students \n 3. Edit Student \n 4. Delete Student \n 5. Exit\n");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+        while(true){
+        switch (choice) {
+            case 1: 
+            Add_Studentlogic();
+            break;
+            case 2: View_Studentslogic();
+            break;      
+            case 3: Edit_Studentlogic();
+            break;
+            case 4: Delete_Studentlogic();
+            break;
+            case 5: System.out.println("Exiting...");   
+            break;
+            default: throw new IllegalArgumentException("Invalid choice: " + choice);
+        }
+        scanner.close();
+    }
+    }
+    public static void Add_Studentlogic(){
         while (true) {
             int ssalc = -1;
             int age = -1;
@@ -79,6 +101,138 @@ public class StudentManagementSystem {
             students.add(newStudent);
             System.out.println("Student added successfully.");
         }
-        scanner.close();
     }
+   public static void View_Studentslogic(){
+    System.out.println("Enter you options \n 1. View all students \n 2. Search by ID \n 3. Search by Name \n 4. Back to Main Menu");
+    int option = scanner.nextInt();
+    scanner.nextLine();
+    switch (option) {
+        case 1:
+            if (students.isEmpty()) {
+                System.out.println("No students found.");
+            } else {
+                System.out.println("--- Student List ---");
+                for (Student student : students) {
+                    System.out.println(student);
+                }
+            }
+            break;
+        case 2:
+            System.out.print("Enter ID to search: ");
+            int searchId = scanner.nextInt();
+            scanner.nextLine();
+            boolean foundById = false;
+            for (Student student : students) {
+                if (student.id == searchId) {
+                    System.out.println(student);
+                    foundById = true;
+                    break;
+                }
+            }
+            if (!foundById) {
+                System.out.println("Student with ID " + searchId + " not found.");
+            }
+            break;
+        case 3:
+            System.out.print("Enter Name to search: ");
+            String searchName = scanner.nextLine();
+            boolean foundByName = false;
+            for (Student student : students) {
+                if (student.name.equalsIgnoreCase(searchName)) {
+                    System.out.println(student);
+                    foundByName = true;
+                }
+            }
+            if (!foundByName) {
+                System.out.println("Student with Name " + searchName + " not found.");
+            }
+            break;
+        case 4:
+            // Back to Main Menu
+            break;
+        default:
+            System.out.println("Invalid option.");
+    }
+   }
+   public static void Edit_Studentlogic(){
+    System.out.print("Enter ID of the student to edit: ");
+    int editId = scanner.nextInt();
+    scanner.nextLine();
+    Student studentToEdit = null;
+    for (Student student : students) {
+        if (student.id == editId) {
+            studentToEdit = student;
+            break;
+        }
+    }
+    if (studentToEdit == null) {
+        System.out.println("Student with ID " + editId + " not found.");
+        return;
+    }
+    System.out.println("Editing Student: " + studentToEdit);
+    System.out.print("Enter new full name (or press Enter to keep current): ");
+    String newName = scanner.nextLine();
+    if (!newName.isEmpty()) {
+        studentToEdit.name = newName;
+    }
+    System.out.print("Enter new age (or press Enter to keep current): ");
+    String newAgeInput = scanner.nextLine();
+    if (!newAgeInput.isEmpty()) {
+        try {
+            int newAge = Integer.parseInt(newAgeInput);
+            studentToEdit.age = newAge;
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid age input. Age not updated.");
+        }
+    }
+    System.out.print("Enter new first name (or press Enter to keep current): ");
+    String newFirstName = scanner.nextLine();
+    if (!newFirstName.isEmpty()) {
+        studentToEdit.firstname = newFirstName;
+    }
+    System.out.print("Enter new last name (or press Enter to keep current): ");
+    String newLastName = scanner.nextLine();
+    if (!newLastName.isEmpty()) {
+        studentToEdit.lastname = newLastName;
+    }
+    System.out.print("Enter new Aadhar number (or press Enter to keep current): ");
+    String newAadharInput = scanner.nextLine();
+    if (!newAadharInput.isEmpty()) {
+        try {
+            long newAadharNumber = Long.parseLong(newAadharInput);
+            studentToEdit.aadharnumber = newAadharNumber;
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Aadhar number input. Aadhar number not updated.");
+        }
+    }
+    System.out.print("Enter new address (or press Enter to keep current): ");
+    String newAddress = scanner.nextLine();
+    if (!newAddress.isEmpty()) {
+        studentToEdit.address = newAddress;
+    }
+    System.out.print("Enter new class (or press Enter to keep current): ");
+    String newssalcInput = scanner.nextLine();
+    if (!newssalcInput.isEmpty()) {
+        studentToEdit.ssalc = newssalcInput.equalsIgnoreCase("done") ? studentToEdit.ssalc : Integer.parseInt(newssalcInput);
+    }
+    System.out.println("Student updated successfully.");
+ }
+ public static void Delete_Studentlogic(){
+    System.out.print("Enter ID of the student to delete: ");
+    int deleteId = scanner.nextInt();
+    scanner.nextLine();
+    Student studentToDelete = null;
+    for (Student student : students) {
+        if (student.id == deleteId) {
+            studentToDelete = student;
+            break;
+        }
+    }
+    if (studentToDelete == null) {
+        System.out.println("Student with ID " + deleteId + " not found.");
+        return;
+    }
+    students.remove(studentToDelete);
+    System.out.println("Student deleted successfully.");
+   }
 }
