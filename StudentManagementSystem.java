@@ -49,8 +49,9 @@ public class StudentManagementSystem {
             System.exit(0);
             default: throw new IllegalArgumentException("Invalid choice: " + choice);
         }
-        scanner.close();
     }
+        
+        scanner.close();
     }
     public static void Add_Studentlogic(){
         while (true) {
