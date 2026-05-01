@@ -45,6 +45,7 @@ public class StudentManagementSystem {
             break;
             case 5: System.out.println("Exiting...");   
             Thread.sleep(1000);
+            System.out.print("exited successfully");
             System.exit(0);
             default: throw new IllegalArgumentException("Invalid choice: " + choice);
         }
