@@ -44,7 +44,8 @@ public class StudentManagementSystem {
             case 4: Delete_Studentlogic();
             break;
             case 5: System.out.println("Exiting...");   
-            break;
+            Thread.sleep(1000);
+            System.exit(0);
             default: throw new IllegalArgumentException("Invalid choice: " + choice);
         }
         scanner.close();
